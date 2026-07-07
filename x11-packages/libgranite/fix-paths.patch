@@ -1,0 +1,14 @@
+diff --git a/lib/Services/Paths.vala b/lib/Services/Paths.vala
+index bf514580..bc81b8c9 100644
+--- a/lib/Services/Paths.vala
++++ b/lib/Services/Paths.vala
+@@ -97,8 +97,7 @@ namespace Granite.Services {
+ 
+             var dirs = new List<File> ();
+             if (xdg_data_dirs == null || xdg_data_dirs.length == 0) {
+-                dirs.append (File.new_for_path ("/usr/local/share"));
+-                dirs.append (File.new_for_path ("/usr/share"));
++                dirs.append (File.new_for_path ("@TERMUX_PREFIX@/share"));
+             } else {
+                 foreach (var path in xdg_data_dirs.split (":"))
+                     dirs.append (File.new_for_path (path));
