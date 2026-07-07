@@ -1,0 +1,14 @@
+diff --git a/src/ePubReader.vala b/src/ePubReader.vala
+index 97803d9..869bff2 100644
+--- a/src/ePubReader.vala
++++ b/src/ePubReader.vala
+@@ -300,7 +300,7 @@ public class BookwormApp.ePubReader {
+         //If cover could not be located in properties="cover-image" : 
+         //Check for a MANIFEST item with "id" attribute contaning the word "cover"
+         if (bookCoverLocation.length < 1 &&
+-            "true" == BookwormApp.Utils.fileOperations ("EXISTS", "", bookCoverLocation, "") )
++            "false" == BookwormApp.Utils.fileOperations ("EXISTS", "", bookCoverLocation, "") )
+         {
+             count = 0;
+             foreach (string id in opfItemsList[0].extractedTagAttributes) {
+

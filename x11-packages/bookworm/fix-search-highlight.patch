@@ -1,0 +1,46 @@
+diff --git a/data/scripts/com.github.babluboy.bookworm.htmlscripts.functions.js b/data/scripts/com.github.babluboy.bookworm.htmlscripts.functions.js
+index 0b7aed3..8da4609 100644
+--- a/data/scripts/com.github.babluboy.bookworm.htmlscripts.functions.js
++++ b/data/scripts/com.github.babluboy.bookworm.htmlscripts.functions.js
+@@ -23,16 +23,33 @@ function overlayAnnotation(annotationText) {
+ 
+ function highlightText(highlightText) {
+     highlightText = decodeURIComponent (highlightText);
+-    //attempt to find and highlight the whole phrase
+-    findAndReplace(highlightText, "<span class='bookworm_search_result_highlight'>"+highlightText+"</span>");
+-    while(is_search_result_found == "false" && highlightText.length > 2){
+-        //whole phrase is not found, retry after removing one character from left and right
+-        highlightText = highlightText.slice(1, -1).trim();
+-        findAndReplace(highlightText, "<span class='bookworm_search_result_highlight'>"+highlightText+"</span>");
++    window.getSelection().removeAllRanges();
++    let maxMatches = 500;
++    // Use browser-native window.find to scan the visible text.
++    // The 4th argument (wrapAround) is set to FALSE so it won't loop back to the top.
++    while (window.find(highlightText, false, false, false, false, false, false) && maxMatches > 0) {
++	maxMatches--;
++        let selection = window.getSelection();
++        if (selection.rangeCount > 0) {
++            let range = selection.getRangeAt(0);
++	    let span = document.createElement("span");
++            span.className = "bookworm_search_result_highlight";
++
++            try {
++		range.surroundContents(span);
++            } catch (e) {
++		console.error("DOM selection split a tag: ", e);
++            }
++	// Force the selection to collapse to the end.
++        // This moves the search cursor past the word so it cannot get stuck.
++	selection.collapseToEnd();
++        }
+     }
+-    //highlight phrase and scroll it to view
++    window.getSelection().removeAllRanges();
+     var resultText = document.getElementsByClassName("bookworm_search_result_highlight")[0];
+-    resultText.scrollIntoView();
++    if (resultText) {
++        resultText.scrollIntoView();
++    }
+ }
+ 
+ function scrollToSearchText(searchText) {

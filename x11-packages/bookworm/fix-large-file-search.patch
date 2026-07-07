@@ -1,0 +1,15 @@
+diff --git a/src/bookinfo.vala b/src/bookinfo.vala
+index 6e8f483..e9624f9 100644
+--- a/src/bookinfo.vala
++++ b/src/bookinfo.vala
+@@ -279,6 +279,10 @@ public class BookwormApp.Info:Gtk.Window {
+                         return true;
+                     });
+                 }
++		if (BookwormApp.Bookworm.BOOKWORM_CURRENT_STATE != BookwormApp.Constants.BOOKWORM_UI_STATES[4]) {
++		    yield;
++		    break;
++		};
+             }
+             searchresults_box.show_all ();
+             //release back control to UI
