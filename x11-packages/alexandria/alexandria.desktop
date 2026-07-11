@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Alexandria
+Comment=A minimalistic eBook reader
+Exec=alexandria
+Icon=alexandria
+Categories=Office
+Keywords=reader;office;ebook;epub;comicbook;comic;ebook
